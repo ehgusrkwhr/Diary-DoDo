@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/readDiaryFragment"
+        android:icon="@drawable/ic_rdairy"
+        android:title="read" />
+    <item
+        android:id="@+id/writeDiaryFragment"
+        android:icon="@drawable/ic_wdairy"
+        android:title="write" />
+    <item
+        android:id="@+id/readCalendarFragment"
+        android:icon="@drawable/ic_calendar"
+        android:title="calendar" />
+    <item
+        android:id="@+id/settingFragment"
+        android:icon="@drawable/ic_setting"
+        android:title="setting" />
+
+</menu>
