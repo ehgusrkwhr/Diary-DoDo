@@ -1,5 +1,6 @@
 package com.kdh.diarydodo.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,10 +10,11 @@ import com.kdh.diarydodo.data.DiaryInfo
 import com.kdh.diarydodo.databinding.DairyListListadapterBinding
 
 
-class DiaryListAdapter(private val diaryInfo: ArrayList<DiaryInfo>) :
+class DiaryListAdapter :
     ListAdapter<DiaryInfo, DiaryListAdapter.DiaryListViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaryListViewHolder {
+        Log.d("dodo2" , "onCreateViewHolder")
         val binding =
             DairyListListadapterBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         //DiaryListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.dairy_list_listadapter, parent, false))
@@ -21,7 +23,8 @@ class DiaryListAdapter(private val diaryInfo: ArrayList<DiaryInfo>) :
 
 
     override fun onBindViewHolder(holder: DiaryListViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        Log.d("dodo2" , "onBindViewHolder")
+        holder.bind(getItem(position) as DiaryInfo)
     }
 
     inner class DiaryListViewHolder(
@@ -29,6 +32,8 @@ class DiaryListAdapter(private val diaryInfo: ArrayList<DiaryInfo>) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(diaryInfo: DiaryInfo) {
             with(binding) {
+                Log.d("dodo2" , diaryInfo.id)
+                Log.d("dodo2" , diaryInfo.name)
                 textViewName.text = diaryInfo.id
                 textViewBody.text = diaryInfo.name
                 //     Glide.with(imageViewAvatar.context)

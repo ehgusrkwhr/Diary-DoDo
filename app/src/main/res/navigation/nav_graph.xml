@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/readDiaryFragment"
-        android:name="com.kdh.diarydodo.ui.ReadDiaryFragment"
+        android:name="com.kdh.diarydodo.ui.home.ReadDiaryFragment"
         android:label="fragment_read_diary"
         tools:layout="@layout/fragment_read_diary" />
     <fragment
         android:id="@+id/writeDiaryFragment"
-        android:name="com.kdh.diarydodo.ui.WriteDiaryFragment"
+        android:name="com.kdh.diarydodo.ui.home.WriteDiaryFragment"
         android:label="fragment_write_diary"
         tools:layout="@layout/fragment_write_diary" />
 </navigation>

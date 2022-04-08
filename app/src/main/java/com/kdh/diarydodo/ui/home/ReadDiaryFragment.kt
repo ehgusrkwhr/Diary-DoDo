@@ -1,6 +1,7 @@
-package com.kdh.diarydodo.ui
+package com.kdh.diarydodo.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,23 +14,19 @@ import com.kdh.diarydodo.databinding.FragmentReadDiaryBinding
 class ReadDiaryFragment : Fragment() {
 
     private var mBinding: FragmentReadDiaryBinding? = null
-    private lateinit var list: ArrayList<DiaryInfo>
 
-    //    private lateinit var list : ArrayList<DiaryInfo>
-//    private val list : ArrayList<DiaryInfo> by lazy{
-////        for(i in 1..10){
-////            val temp = DiaryInfo()
-////            list.add(temp)
-////        }
-//        val temp = DiaryInfo()
-//        list.add(temp)
-//        list
-//    }
-//     private val list : ArrayList<DiaryInfo> = TODO()
+    //    private var mBinding by autoCleared<FragmentReadDiaryBinding>
+    private lateinit var list: ArrayList<DiaryInfo>
+//    private lateinit var listAdapter: DiaryListAdapter
+    private val listAdapter: DiaryListAdapter by lazy{
+        DiaryListAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentReadDiaryBinding.inflate(inflater, container, false)
         mBinding = binding
         return mBinding?.root
@@ -47,10 +44,21 @@ class ReadDiaryFragment : Fragment() {
             list.add(temp)
         }
 
-        with(binding.readDiaryListView) {
+        //listAdapter = DiaryListAdapter()
+        //with(binding.readDiaryListView) {
+        binding.readDiaryListView.apply {
+            Log.d("dodo2" , "layoutManager")
+           // layoutManager = LinearLayoutManager(context)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-            adapter = DiaryListAdapter(list)
+            adapter = listAdapter
         }
+        listAdapter.submitList(list)
+        Log.d("dodo2 ", list.toString())
+//        with(binding.readDiaryListView) {
+//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+//            adapter = DiaryListAdapter()
+//            adapter.subm
+//        }
 
     }
 
