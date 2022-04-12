@@ -11,11 +11,11 @@ import androidx.room.Query
 interface DiaryDAO {
 
     @Insert(onConflict = REPLACE)
-    fun insert(memo : DiaryEntity)
+    suspend fun insert(memo : DiaryEntity)
 
     @Query("SELECT * FROM memo")
-    fun getAll() : List<DiaryEntity>
+    suspend fun getAll() : List<DiaryEntity>
 
     @Delete()
-    fun delete(memo : DiaryEntity)
+    suspend fun delete(memo : DiaryEntity)
 }
