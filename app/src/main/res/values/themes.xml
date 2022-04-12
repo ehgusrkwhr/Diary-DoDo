@@ -12,6 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!-- 타이틀바 제거 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 액션바 제거 -->
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+
     </style>
 
     <style name="Theme.DiaryDoDo.NoActionBar">
@@ -25,5 +32,7 @@
 
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 </resources>

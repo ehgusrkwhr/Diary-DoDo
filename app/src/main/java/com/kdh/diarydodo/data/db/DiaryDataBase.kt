@@ -6,25 +6,24 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = arrayOf(DiaryEntity::class), version = 1)
+@Database(entities = [DiaryEntity::class], version = 1)
 abstract class DiaryDataBase : RoomDatabase() {
-    abstract fun diaaryDAO(): DiaryDAO
+    abstract fun diaryDAO(): DiaryDAO
 
-    companion object {
-        var INSTANCE: DiaryDataBase? = null
-        fun getInstance(context: Context): DiaryDataBase? {
-            if (INSTANCE == null) {
-                synchronized(DiaryDataBase::class) {
-                    INSTANCE = Room.databaseBuilder(
-                        context.applicationContext,
-                        DiaryDataBase::class.java, "memo.db"
-                    )
-                        .fallbackToDestructiveMigration()
-                        .build()
-                }
-            }
-            return INSTANCE
-        }
-
-    }
+//    companion object {
+//        @Volatile var INSTANCE: DiaryDataBase? = null
+//        fun getInstance(context: Context): DiaryDataBase? {
+//            if (INSTANCE == null) {
+//                synchronized(DiaryDataBase::class) {
+//                    INSTANCE = Room.databaseBuilder(
+//                        context.applicationContext,
+//                        DiaryDataBase::class.java, "memo.db"
+//                    )
+//                        .fallbackToDestructiveMigration()
+//                        .build()
+//                }
+//            }
+//            return INSTANCE
+//        }
+//    }
 }

@@ -5,34 +5,40 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kdh.diarydodo.adapter.DiaryListAdapter
 import com.kdh.diarydodo.data.DiaryInfo
+import com.kdh.diarydodo.data.db.DiaryDataBase
+import com.kdh.diarydodo.data.db.DiaryEntity
 import com.kdh.diarydodo.databinding.FragmentReadDiaryBinding
+import com.kdh.diarydodo.ui.base.BaseFragment
+import com.kdh.diarydodo.ui.viewmodel.DiaryViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ReadDiaryFragment : Fragment() {
 
-    private var mBinding: FragmentReadDiaryBinding? = null
+@AndroidEntryPoint
+class ReadDiaryFragment : BaseFragment<FragmentReadDiaryBinding>() {
 
-    //    private var mBinding by autoCleared<FragmentReadDiaryBinding>
+    private lateinit var db: DiaryDataBase
     private lateinit var list: ArrayList<DiaryInfo>
-//    private lateinit var listAdapter: DiaryListAdapter
-    private val listAdapter: DiaryListAdapter by lazy{
+    private val viewModel : DiaryViewModel by viewModels()
+    //    private lateinit var listAdapter: DiaryListAdapter
+    private val listAdapter: DiaryListAdapter by lazy {
         DiaryListAdapter()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        val binding = FragmentReadDiaryBinding.inflate(inflater, container, false)
-        mBinding = binding
-        return mBinding?.root
-        // Inflate the layout for this fragment
-        // return inflater.inflate(R.layout.fragment_read_diary, container, false)
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentReadDiaryBinding {
+        return FragmentReadDiaryBinding.inflate(inflater, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,27 +50,23 @@ class ReadDiaryFragment : Fragment() {
             list.add(temp)
         }
 
-        //listAdapter = DiaryListAdapter()
-        //with(binding.readDiaryListView) {
+
         binding.readDiaryListView.apply {
-            Log.d("dodo2" , "layoutManager")
-           // layoutManager = LinearLayoutManager(context)
+            Log.d("dodo2", "layoutManager")
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = listAdapter
         }
         listAdapter.submitList(list)
         Log.d("dodo2 ", list.toString())
-//        with(binding.readDiaryListView) {
-//            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-//            adapter = DiaryListAdapter()
-//            adapter.subm
+
+
+    }
+
+//    private fun insertDiary() {
+//        lifecycleScope.launch(Dispatchers.IO) {
+//            val memo = DiaryEntity(null, binding.editTextMemo.toString())
+//            db.diaryDAO().insert(memo)
 //        }
-
-    }
-
-    override fun onDestroyView() {
-        mBinding = null
-        super.onDestroyView()
-    }
+//    }
 
 }

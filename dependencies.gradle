@@ -1,0 +1,39 @@
+ext {
+    // Build configuration
+    buildToolsVersion = '30.0.3'
+    minSdkVersion = 21
+    compileSdkVersion = 30
+    targetSdkVersion = 30
+
+    // Library
+    gradle_version = '4.1.3'
+    google_service_version = '4.3.3'
+    google_oss_licenses_version = '0.9.0'
+
+    kotlin_version = '1.6.20'
+    legacy_support_library_version = '1.0.0'
+    androidx_version = '1.1.0'
+    browser_version = '1.2.0'
+    constraint_layout_version = '1.1.3'
+    play_service_location_version = '17.0.0'
+    play_service_oss_licenses_version = '16.0.0'
+    retrofit_version = '2.5.0'
+    okhttp_version = '3.11.0'
+    glide_version = '4.10.0'
+    gson_version = '2.8.5'
+    rxjava_version = '2.2.10'
+    rxandroid_version = '2.1.1'
+    rxbinding_version = '2.2.0'
+    architecture_version = '2.2.0'
+    dagger_version = '2.23.2'
+    multidex_version = '2.0.1'
+    firebase_core_version = '17.4.2'
+    firebase_messaging_version = '20.2.0'
+    firebase_analytics_version = '17.4.3'
+    crashlytics_version = '17.2.2'
+    crashlytics_gradle_version = '2.1.1'
+    asynchttpclient_version = '1.4.9'
+    lottie_version = '3.4.0'
+    coroutine_version ='1.3.3'
+    kotlin_jdk7_version = '1.3.61'
+}
