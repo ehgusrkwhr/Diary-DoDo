@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.kdh.diarydodo.MainActivity
 import com.kdh.diarydodo.common.ApplicationContextWrapper
@@ -14,6 +15,7 @@ import com.kdh.diarydodo.data.db.DiaryDataBase
 import com.kdh.diarydodo.data.db.DiaryEntity
 import com.kdh.diarydodo.databinding.FragmentWriteDiaryBinding
 import com.kdh.diarydodo.ui.base.BaseFragment
+import com.kdh.diarydodo.ui.viewmodel.DiaryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +26,7 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
     // private var mBinding: FragmentWriteDiaryBinding? = null
     private lateinit var db: DiaryDataBase
     var diaryList = listOf<DiaryEntity>()
-
+    private val viewModel: DiaryViewModel by viewModels()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -47,9 +49,10 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
        // db = DiaryDataBase.getInstance(mainActivity)!!
         //val binding = FragmentWriteDiaryBinding.inflate(layoutInflater)
         binding.diaryReg.setOnClickListener {
-            Log.d("dodo22 ", "클릭1111")
+            Log.d("dodo22 ", "클릭1111 ${binding.editTextMemo.text}")
           //  insertDiary()
             Toast.makeText(activity, "클릭!", Toast.LENGTH_SHORT).show()
+            viewModel.insertDiaryInfo(binding.editTextMemo.text.toString())
 
         }
     }

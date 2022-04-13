@@ -2,26 +2,27 @@ package com.kdh.diarydodo.data.repository
 
 import com.kdh.diarydodo.data.db.DiaryDAO
 import com.kdh.diarydodo.data.db.DiaryEntity
-import com.kdh.diarydodo.ui.base.UiState
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DiaryRepository @Inject constructor(private val diaryDAO : DiaryDAO) {
+class DiaryRepository @Inject constructor(private val diaryDAO: DiaryDAO) {
 
-     fun getALLDiary() : Flow<UiState> = flow<UiState>{
+    suspend fun getALLDiary(): List<DiaryEntity> {
+        return withContext(Dispatchers.IO) {
+            diaryDAO.getAll()
+        }
+    }
+    // return diaryDAO.getAll()
 
-     }
-       // return diaryDAO.getAll()
 
-
-     fun insertDiary(memo : String){
-        diaryDAO.insert(DiaryEntity(null,memo))
+    suspend fun insertDiary(memo: String) {
+        diaryDAO.insert(DiaryEntity(null, memo))
     }
 
-     fun deleteDiary(info : DiaryEntity){
+    suspend fun deleteDiary(info: DiaryEntity) {
         diaryDAO.delete(info)
     }
 }

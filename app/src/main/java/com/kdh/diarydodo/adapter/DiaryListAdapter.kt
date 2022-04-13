@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kdh.diarydodo.data.DiaryInfo
+import com.kdh.diarydodo.data.db.DiaryEntity
 import com.kdh.diarydodo.databinding.DairyListListadapterBinding
+import java.util.*
 
 
 class DiaryListAdapter :
-    ListAdapter<DiaryInfo, DiaryListAdapter.DiaryListViewHolder>(diffCallback) {
+    ListAdapter<DiaryEntity, DiaryListAdapter.DiaryListViewHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DiaryListViewHolder {
         Log.d("dodo2" , "onCreateViewHolder")
@@ -24,32 +26,53 @@ class DiaryListAdapter :
 
     override fun onBindViewHolder(holder: DiaryListViewHolder, position: Int) {
         Log.d("dodo2" , "onBindViewHolder")
-        holder.bind(getItem(position) as DiaryInfo)
+        holder.bind(getItem(position))
     }
 
     inner class DiaryListViewHolder(
         private val binding: DairyListListadapterBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(diaryInfo: DiaryInfo) {
+
+        fun bind(diaryInfo: DiaryEntity) {
             with(binding) {
-                Log.d("dodo2" , diaryInfo.id)
-                Log.d("dodo2" , diaryInfo.name)
-                textViewName.text = diaryInfo.id
-                textViewBody.text = diaryInfo.name
+                Log.d("dodo2" , diaryInfo.id.toString())
+                Log.d("dodo2" , diaryInfo.memo)
+                textViewName.text = diaryInfo.id.toString()
+                textViewBody.text = diaryInfo.memo
                 //     Glide.with(imageViewAvatar.context)
 //                    .load(user.avatar)
 //                    .into(imageViewAvatar)
             }
         }
+
+        fun setAlpah(alpha : Float){
+            with(binding){
+                textViewName.alpha = alpha
+                textViewBody.alpha = alpha
+            }
+        }
+    }
+
+    fun moveItem(fromPosition :Int,toPosition : Int){
+        val newList = currentList.toMutableList()
+        Collections.swap(newList,fromPosition,toPosition)
+        submitList(newList)
+    }
+
+    fun removeItem(position : Int){
+        val newList = currentList.toMutableList()
+        newList.removeAt(position)
+        submitList(newList)
     }
 
 
     companion object {
-        private val diffCallback = object : DiffUtil.ItemCallback<DiaryInfo>() {
-            override fun areItemsTheSame(oldItem: DiaryInfo, newItem: DiaryInfo): Boolean =
+        private val diffCallback = object : DiffUtil.ItemCallback<DiaryEntity>() {
+
+            override fun areItemsTheSame(oldItem: DiaryEntity, newItem: DiaryEntity): Boolean =
                 oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: DiaryInfo, newItem: DiaryInfo): Boolean =
+            override fun areContentsTheSame(oldItem: DiaryEntity, newItem: DiaryEntity): Boolean =
                 oldItem == newItem
         }
     }
