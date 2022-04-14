@@ -1,12 +1,8 @@
 package com.kdh.diarydodo.helper
 
-import android.app.AlertDialog
-import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.kdh.diarydodo.App
 import com.kdh.diarydodo.adapter.DiaryListAdapter
-import com.kdh.diarydodo.common.ApplicationContextWrapper
 
 class ItemTouchHelperCallback(private val recyclerView: RecyclerView) :
     ItemTouchHelper.SimpleCallback(

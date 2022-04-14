@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kdh.diarydodo.data.DiaryInfo
 import com.kdh.diarydodo.data.db.DiaryEntity
 import com.kdh.diarydodo.databinding.DairyListListadapterBinding
+import com.kdh.diarydodo.util.DateUtil
 import java.util.*
 
 
@@ -39,6 +40,7 @@ class DiaryListAdapter :
                 Log.d("dodo2" , diaryInfo.memo)
                 textViewName.text = diaryInfo.id.toString()
                 textViewBody.text = diaryInfo.memo
+                textViewDate.text = diaryInfo.date
                 //     Glide.with(imageViewAvatar.context)
 //                    .load(user.avatar)
 //                    .into(imageViewAvatar)
@@ -49,6 +51,7 @@ class DiaryListAdapter :
             with(binding){
                 textViewName.alpha = alpha
                 textViewBody.alpha = alpha
+                textViewDate.alpha = alpha
             }
         }
     }

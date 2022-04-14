@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    android:background="@drawable/round_border_diarylist"
+
+    >
+
+    <TextView
+        android:id="@+id/textViewGetPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:text="사진 가져오기"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/appicon"
+        app:layout_constraintLeft_toRightOf="@+id/textViewGetPicture"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewGetPicture" />
+
+    <LinearLayout
+        android:id="@+id/layoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewGetPicture">
+
+        <ImageView
+            android:id="@+id/imageViewCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_camera" />
+
+        <ImageView
+            android:id="@+id/imageViewPicture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/ic_picture" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

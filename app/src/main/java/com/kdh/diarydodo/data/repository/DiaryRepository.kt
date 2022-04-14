@@ -18,8 +18,8 @@ class DiaryRepository @Inject constructor(private val diaryDAO: DiaryDAO) {
     // return diaryDAO.getAll()
 
 
-    suspend fun insertDiary(memo: String) {
-        diaryDAO.insert(DiaryEntity(null, memo))
+    suspend fun insertDiary(memo: String,date : String) {
+        diaryDAO.insert(DiaryEntity(null, memo,date))
     }
 
     suspend fun deleteDiary(info: DiaryEntity) {

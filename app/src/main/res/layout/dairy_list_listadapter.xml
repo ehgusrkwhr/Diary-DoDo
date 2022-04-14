@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/container"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="100dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/round_border_diarylist">
 
     <ImageView
         android:id="@+id/imageViewAvatar"
         android:layout_width="60dp"
         android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,18 +26,35 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageViewAvatar"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="10dp"
         tools:text="MindOrks" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewBody"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textViewName"
         app:layout_constraintTop_toBottomOf="@+id/textViewName"
         tools:text="MindOrks" />
+
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewBody"
+        tools:text="2022년03월 30일 오후 13:23"
+
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

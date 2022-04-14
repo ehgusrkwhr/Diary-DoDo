@@ -10,5 +10,6 @@ import com.squareup.moshi.JsonClass
 data class DiaryEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Long?,
-    var memo: String = ""
+    var memo: String = "",
+    var date: String = ""
 )

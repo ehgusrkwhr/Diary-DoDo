@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.DiaryDoDo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/all_background_color</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
@@ -18,6 +18,8 @@
         <!-- 액션바 제거 -->
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
+        <!--배경화면 색상-->
+        <item name="android:windowBackground">@color/all_background_color</item>
 
     </style>
 

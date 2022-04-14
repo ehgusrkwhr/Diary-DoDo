@@ -26,8 +26,8 @@ class DiaryViewModel @Inject constructor(
         _eventUserRepo.postValue(response)
     }
 
-    fun insertDiaryInfo(memo : String) = viewModelScope.launch {
-        diaryRepository.insertDiary(memo)
+    fun insertDiaryInfo(memo : String,date : String) = viewModelScope.launch {
+        diaryRepository.insertDiary(memo,date)
        // _eventUserRepo.postValue(response)
 
     }
