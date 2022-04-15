@@ -6,16 +6,15 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import com.kdh.diarydodo.R
-import com.kdh.diarydodo.databinding.ActivityMainBinding
 import com.kdh.diarydodo.databinding.CustomPictureDialogBinding
 
-class CustomDialog(context : Context,pictureDialogInterface : PictureInterface) : Dialog(context),View.OnClickListener {
+class CustomDialog(context: Context, pictureDialogInterface: PictureInterface) : Dialog(context),
+    View.OnClickListener {
     private lateinit var binding: CustomPictureDialogBinding
-    private var event  = pictureDialogInterface
+    private var event = pictureDialogInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("dodo2 ","CustomDialog 지닙")
+        Log.d("dodo2 ", "CustomDialog 지닙")
         binding = CustomPictureDialogBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
@@ -23,17 +22,23 @@ class CustomDialog(context : Context,pictureDialogInterface : PictureInterface) 
 
     }
 
-    private fun initView(){
+    private fun initView() {
         binding.imageViewCamera.setOnClickListener(this)
         binding.imageViewPicture.setOnClickListener(this)
         binding.imageViewCancel.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        when(v){
-            binding.imageViewCamera  -> event.onCameraStart()
-            binding.imageViewPicture -> event.onAlbumStart()
-            binding.imageViewCancel  -> dismiss()
+        when (v) {
+            binding.imageViewCamera -> {
+                event.onCameraStart()
+                dismiss()
+            }
+            binding.imageViewPicture -> {
+                event.onAlbumStart()
+                dismiss()
+            }
+            binding.imageViewCancel -> dismiss()
         }
     }
 

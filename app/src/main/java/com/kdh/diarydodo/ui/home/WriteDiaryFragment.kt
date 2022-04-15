@@ -19,7 +19,6 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import com.kdh.diarydodo.common.Constant.REQ_CAMERA_ALBUM
 import com.kdh.diarydodo.databinding.FragmentWriteDiaryBinding
 import com.kdh.diarydodo.ui.base.BaseFragment
 import com.kdh.diarydodo.ui.custom.CustomDialog
@@ -35,12 +34,13 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
     private val viewModel: DiaryViewModel by viewModels()
     private val cameraPermissionCheckCallBack =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
-            if(it) pictureDialog()
+            if (it) pictureDialog()
             Log.d("dodo2 ", "무엇을처리")
 
         }
     private val pictureImageCheckCallBack = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) {
+        ActivityResultContracts.StartActivityForResult()
+    ) {
         // Callback 작업 구현
         if (it.resultCode == RESULT_OK) {
             Log.d("dodo2 ", "성공")
@@ -53,18 +53,18 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
     }
 
     private val albumImageCheckCallBack = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) {
+        ActivityResultContracts.StartActivityForResult()
+    ) {
         Log.d("dodo2 ", "it.resultCode ${it.resultCode}")
         // Callback 작업 구현
-        if(it.resultCode == RESULT_OK){
-            it.data?: return@registerForActivityResult
-//            val uri = it.data!!.data as Uri
+        if (it.resultCode == RESULT_OK) {
+            it.data ?: return@registerForActivityResult
             val imageData = it.data!!.data as Uri
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
-                val source = ImageDecoder.createSource(requireContext().contentResolver,imageData)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                val source = ImageDecoder.createSource(requireContext().contentResolver, imageData)
                 val bitmap = ImageDecoder.decodeBitmap(source)
                 binding.imageViewPicture.setImageBitmap(bitmap)
-            }else{
+            } else {
                 val bitmap = MediaStore.Images.Media.getBitmap(
                     requireContext().contentResolver,
                     imageData
@@ -73,8 +73,6 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
             }
 
         }
-
-
     }
 
     override fun getFragmentBinding(
@@ -134,6 +132,7 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
                 pictureImageCheckCallBack.launch(pictureIntent)
 
             }
+
             override fun onAlbumStart() {
                 Toast.makeText(activity, "앨범 클릭", Toast.LENGTH_SHORT).show()
                 val intent = Intent()
