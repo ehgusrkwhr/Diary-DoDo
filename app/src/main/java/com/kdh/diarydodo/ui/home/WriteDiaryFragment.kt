@@ -1,22 +1,26 @@
 package com.kdh.diarydodo.ui.home
 
 import PictureInterface
-import android.content.Intent
+import android.Manifest
+import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.kdh.diarydodo.common.Constant.REQ_CAMERA_PERMISSION
 import com.kdh.diarydodo.databinding.FragmentWriteDiaryBinding
 import com.kdh.diarydodo.ui.base.BaseFragment
 import com.kdh.diarydodo.ui.custom.CustomDialog
 import com.kdh.diarydodo.ui.viewmodel.DiaryViewModel
 import com.kdh.diarydodo.util.DateUtil
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
@@ -51,8 +55,8 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
         }
 
         binding.textViewPictureDetail.setOnClickListener {
-            Log.d("dodo2","textViewPictureDetail")
-            CustomDialog(requireContext(), object : PictureInterface{
+            Log.d("dodo2", "textViewPictureDetail")
+            CustomDialog(requireContext(), object : PictureInterface {
                 override fun onCameraStart() {
                     Toast.makeText(activity, "카메라 클릭", Toast.LENGTH_SHORT).show()
 
@@ -66,6 +70,16 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
             }).show()
         }
 
+    }
+
+    private fun checkPermission() {
+        var permission =
+            ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
+        if (permission == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            ActivityCompat.requestPermissions(Activity(),arrayOf(Manifest.permission.CAMERA),REQ_CAMERA_PERMISSION)
+        }
     }
 
 
