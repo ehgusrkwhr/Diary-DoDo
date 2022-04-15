@@ -64,7 +64,7 @@
         <LinearLayout
             android:id="@+id/pictureLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="550dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/round_border_diarylist"
             android:orientation="vertical"
@@ -101,7 +101,10 @@
             <ImageView
                 android:id="@+id/imageViewPicture"
                 android:layout_width="match_parent"
-                android:layout_height="470dp" />
+                android:layout_height="470dp"
+                android:padding="100dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_default_image" />
 
         </LinearLayout>
 

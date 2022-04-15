@@ -2,18 +2,24 @@ package com.kdh.diarydodo.ui.home
 
 import PictureInterface
 import android.Manifest
-import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import com.kdh.diarydodo.common.Constant.REQ_CAMERA_PERMISSION
+import com.kdh.diarydodo.common.Constant.REQ_CAMERA_ALBUM
 import com.kdh.diarydodo.databinding.FragmentWriteDiaryBinding
 import com.kdh.diarydodo.ui.base.BaseFragment
 import com.kdh.diarydodo.ui.custom.CustomDialog
@@ -27,6 +33,49 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
 
 
     private val viewModel: DiaryViewModel by viewModels()
+    private val cameraPermissionCheckCallBack =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            if(it) pictureDialog()
+            Log.d("dodo2 ", "무엇을처리")
+
+        }
+    private val pictureImageCheckCallBack = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) {
+        // Callback 작업 구현
+        if (it.resultCode == RESULT_OK) {
+            Log.d("dodo2 ", "성공")
+            val bitmap = it.data?.extras?.get("data") as Bitmap
+            binding.imageViewPicture.setImageBitmap(bitmap)
+
+        } else {
+            Log.d("dodo2 ", "실패")
+        }
+    }
+
+    private val albumImageCheckCallBack = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()) {
+        Log.d("dodo2 ", "it.resultCode ${it.resultCode}")
+        // Callback 작업 구현
+        if(it.resultCode == RESULT_OK){
+            it.data?: return@registerForActivityResult
+//            val uri = it.data!!.data as Uri
+            val imageData = it.data!!.data as Uri
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P){
+                val source = ImageDecoder.createSource(requireContext().contentResolver,imageData)
+                val bitmap = ImageDecoder.decodeBitmap(source)
+                binding.imageViewPicture.setImageBitmap(bitmap)
+            }else{
+                val bitmap = MediaStore.Images.Media.getBitmap(
+                    requireContext().contentResolver,
+                    imageData
+                )
+                binding.imageViewPicture.setImageBitmap(bitmap)
+            }
+
+        }
+
+
+    }
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -34,6 +83,7 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
     ): FragmentWriteDiaryBinding {
         return FragmentWriteDiaryBinding.inflate(inflater, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,32 +104,46 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
             }
         }
 
-        binding.textViewPictureDetail.setOnClickListener {
-            Log.d("dodo2", "textViewPictureDetail")
-            CustomDialog(requireContext(), object : PictureInterface {
-                override fun onCameraStart() {
-                    Toast.makeText(activity, "카메라 클릭", Toast.LENGTH_SHORT).show()
-
-
-                }
-
-                override fun onAlbumStart() {
-                    Toast.makeText(activity, "앨범 클릭", Toast.LENGTH_SHORT).show()
-                }
-
-            }).show()
+        binding.imageViewPicture.setOnClickListener {
+            checkPermission()
         }
-
     }
 
     private fun checkPermission() {
         var permission =
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
         if (permission == PackageManager.PERMISSION_GRANTED) {
-
+            Log.d("dodo22", "카메라권한존재")
+            pictureDialog()
         } else {
-            ActivityCompat.requestPermissions(Activity(),arrayOf(Manifest.permission.CAMERA),REQ_CAMERA_PERMISSION)
+            Log.d("dodo22", "else")
+            //val permissionLauncher = registerForActivityResult(ActivityResultContract.)
+            cameraPermissionCheckCallBack.launch(Manifest.permission.CAMERA)
         }
+        //ActivityCompat.requestPermissions(Activity(),arrayOf(Manifest.permission.CAMERA),REQ_CAMERA_PERMISSION)
+
+    }
+
+    private fun pictureDialog() {
+        Log.d("dodo22 ", " pictureDialog")
+        //val dialog = CustomDialog()
+        val dialog = CustomDialog(requireContext(), object : PictureInterface {
+            override fun onCameraStart() {
+                Toast.makeText(activity, "카메라 클릭", Toast.LENGTH_SHORT).show()
+                val pictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                pictureImageCheckCallBack.launch(pictureIntent)
+
+            }
+            override fun onAlbumStart() {
+                Toast.makeText(activity, "앨범 클릭", Toast.LENGTH_SHORT).show()
+                val intent = Intent()
+                intent.type = "image/*"
+                intent.action = Intent.ACTION_GET_CONTENT
+                albumImageCheckCallBack.launch(intent)
+            }
+
+        }).show()
+
     }
 
 
