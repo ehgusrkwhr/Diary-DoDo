@@ -15,4 +15,8 @@
         android:name="com.kdh.diarydodo.ui.home.WriteDiaryFragment"
         android:label="fragment_write_diary"
         tools:layout="@layout/fragment_write_diary" />
+    <fragment
+        android:id="@+id/calendarDiaryFragment"
+        android:name="com.kdh.diarydodo.ui.home.CalendarDiaryFragment"
+        android:label="CalendarDiaryFragment" />
 </navigation>

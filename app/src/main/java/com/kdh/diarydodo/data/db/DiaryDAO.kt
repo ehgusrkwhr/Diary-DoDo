@@ -16,6 +16,9 @@ interface DiaryDAO {
     @Query("SELECT * FROM memo")
     suspend fun getAll() : List<DiaryEntity>
 
+    @Query("SELECT * FROM memo WHERE date = :targetDate")
+    suspend fun getSelectDateAll(targetDate: String) : List<DiaryEntity>
+
     @Delete()
     suspend fun delete(memo : DiaryEntity)
 }

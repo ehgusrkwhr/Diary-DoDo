@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.kdh.diarydodo.databinding.FragmentWriteDiaryBinding
+import com.kdh.diarydodo.singleClick
 import com.kdh.diarydodo.ui.base.BaseFragment
 import com.kdh.diarydodo.ui.custom.CustomDialog
 import com.kdh.diarydodo.ui.viewmodel.DiaryViewModel
@@ -32,6 +35,63 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
 
 
     private val viewModel: DiaryViewModel by viewModels()
+    private val essentialPermissionsList = arrayOf(
+        Manifest.permission.CAMERA,
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { result: MutableMap<String, Boolean> ->
+            Log.d("dodo55 ", "result ${result}")
+            val deniedList: List<String> = result.filter {
+                !it.value
+            }.map {
+                it.key
+            }
+            Log.d("dodo55 ", "deniedList ${deniedList}")
+            when {
+                deniedList.isNotEmpty() -> {
+                    val map = deniedList.groupBy { permission ->
+                        if (shouldShowRequestPermissionRationale(permission)) "DENIED" else "EXPLAINED"
+                    }
+                    Log.d("dodo55 ", "map ${map}")
+                    map["DENIED"]?.let {
+                        //거부한번 재요청
+                        Log.d("dodo55 ", "거부한번")
+                        Snackbar.make(
+                            requireActivity().findViewById(android.R.id.content),
+                            "권한 재요청",
+                            Snackbar.LENGTH_SHORT
+                        )
+                    }
+                    map["EXPLAINED"]?.let {
+                        //거부두번
+                        Log.d("dodo55 ", "거부두번")
+                        Snackbar.make(
+                            requireActivity().findViewById(android.R.id.content),
+                            "권한 사용을 승인해야 접근가능합니다.",
+                            Snackbar.LENGTH_LONG
+                        ).setAction("확인") {
+                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                                .setData(Uri.parse("package:" + requireContext().packageName))
+                            requireContext().startActivity(intent)
+                        }.show()
+                    }
+                }
+                else -> {
+                    //모든 권한 통과
+                    Log.d("dodo55 ", "모든 권한 통과")
+                    pictureDialog()
+                }
+            }
+
+
+        }
+
+
     private val cameraPermissionCheckCallBack =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             if (it) pictureDialog()
@@ -102,8 +162,9 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
             }
         }
 
-        binding.imageViewPicture.setOnClickListener {
-            checkPermission()
+        binding.imageViewPicture.singleClick {
+            requestPermissionLauncher.launch(essentialPermissionsList)
+            //  checkPermission()
         }
     }
 
@@ -145,6 +206,19 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
 
     }
 
+//    private fun permissionSnackBar(){
+//        // 사용자가 권한을 거부하면서 다시 묻지않음 옵션을 선택한 경우
+//    // requestPermission을 요청해도 창이 나타나지 않기 때문에 설정창으로 이동한다.
+//    val snackBar = Snackbar.make(layout, "R.string.suggest_permissison_grant_in_setting", Snackbar.LENGTH_INDEFINITE)
+//        snackBar.setAction("확인") {
+//            val intent = Intent()
+//            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+//            val uri = Uri.fromParts("package", packageName, null)
+//            intent.data = uri
+//            startActivity(intent) } snackBar.show()
+//
+//
+//    }
 
 }
 

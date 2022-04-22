@@ -1,10 +1,15 @@
 package com.kdh.diarydodo.helper
 
+import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.*
 import androidx.recyclerview.widget.RecyclerView
 import com.kdh.diarydodo.adapter.DiaryListAdapter
 
-class ItemTouchHelperCallback(private val recyclerView: RecyclerView) :
+class ItemTouchHelperCallback(
+    private val recyclerView: RecyclerView,
+    private val context: Context
+) :
     ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP or ItemTouchHelper.DOWN,
         ItemTouchHelper.LEFT
@@ -21,14 +26,28 @@ class ItemTouchHelperCallback(private val recyclerView: RecyclerView) :
         return true
     }
 
+    override fun getMovementFlags(
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder
+    ): Int {
+        return makeMovementFlags(UP or DOWN, LEFT)
+    }
+
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//        val dialog : AlertDialog.Builder  = AlertDialog.Builder(this).apply {
+//        val dialog: AlertDialog.Builder = AlertDialog.Builder(context).apply {
 //            setTitle("경고")
 //            setMessage("정말 삭제하시겠습니까?")
-//            setPositiveButton("예",null)
-//            setNegativeButton("아니오",null)
-//            create().show()
+//            setPositiveButton("예") { _, _ ->
+//                Log.d("dodo55 "," 예 ")
+//                (recyclerView.adapter as DiaryListAdapter).removeItem(viewHolder.layoutPosition)
+//            }
+//            setNegativeButton("아니요") { dl, _ ->
+//                Log.d("dodo55 "," 아니요 ")
+//                dl.cancel()
+//            }
+//            create()
 //        }
+//        dialog.show()
         (recyclerView.adapter as DiaryListAdapter).removeItem(viewHolder.layoutPosition)
     }
 

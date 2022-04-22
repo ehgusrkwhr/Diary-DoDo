@@ -10,7 +10,7 @@
         android:icon="@drawable/ic_wdairy"
         android:title="write" />
     <item
-        android:id="@+id/readCalendarFragment"
+        android:id="@+id/calendarDiaryFragment"
         android:icon="@drawable/ic_calendar"
         android:title="calendar" />
     <item

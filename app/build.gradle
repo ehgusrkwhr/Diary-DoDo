@@ -20,12 +20,52 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+//        release {
+//            storeFile file(RELEASE_STORE_FILE)
+//            storePassword RELEASE_STORE_PASSWORD
+//            keyAlias RELEASE_KEY_ALIAS
+//            keyPassword RELEASE_KEY_PASSWORD
+//        }
+//        debug {
+//            storeFile file(RELEASE_STORE_FILE)
+//            storePassword RELEASE_STORE_PASSWORD
+//            keyAlias RELEASE_KEY_ALIAS
+//            keyPassword RELEASE_KEY_PASSWORD
+//        }
+    }
+
+
+
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
+            minifyEnabled true
+         //   signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            debuggable true
+        }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "diaryDoDo"
+            def projectType = "user"
+            def buildType = variant.buildType.name
+            def version = variant.versionName
+            def code = variant.versionCode
+            def date = new Date();
+            def formattedDate = date.format('yyyyMMddHHmmss')
+
+            def newApkName = project + "_" + projectType + "_" + buildType + "_" + version + "_" + code + "_" + formattedDate + ".apk"
+
+            outputFileName = new File(newApkName)
+        }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -36,6 +76,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+
 }
 
 dependencies {
@@ -70,4 +111,10 @@ dependencies {
     // serialization
     implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.12.0"
+
+    //calendar
+    implementation 'com.prolificinteractive:material-calendarview:1.4.3'
+
+    //time
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1'
 }

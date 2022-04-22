@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
+
 class DiaryRepository @Inject constructor(private val diaryDAO: DiaryDAO) {
 
     suspend fun getALLDiary(): List<DiaryEntity> {

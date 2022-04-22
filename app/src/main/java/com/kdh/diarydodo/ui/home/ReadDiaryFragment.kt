@@ -27,7 +27,7 @@ class ReadDiaryFragment : BaseFragment<FragmentReadDiaryBinding>() {
     //    private lateinit var listAdapter: DiaryListAdapter
     private val listAdapter: DiaryListAdapter by lazy {
         Log.d("dodo2", "listAdapter")
-        DiaryListAdapter()
+        DiaryListAdapter(requireContext())
     }
 
     override fun getFragmentBinding(
@@ -43,11 +43,15 @@ class ReadDiaryFragment : BaseFragment<FragmentReadDiaryBinding>() {
         binding.readDiaryListView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = listAdapter
-            val itemTouchHelperCallback = ItemTouchHelper(ItemTouchHelperCallback(this))
-            itemTouchHelperCallback.attachToRecyclerView(this)
+//            val itemTouchHelperCallback = ItemTouchHelper(ItemTouchHelperCallback(this,requireContext()))
+//            itemTouchHelperCallback.attachToRecyclerView(this)
+            val itemTouchHelperCallback = ItemTouchHelperCallback(this, requireContext()).apply {
+                setClamp(resources.displayMetrics.widthPixels.toFloat() / 4)
+            }
+            ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(this)
+            initDiaryView()
+            observeViewModel()
         }
-        initDiaryView()
-        observeViewModel()
     }
 
     private fun initDiaryView() {

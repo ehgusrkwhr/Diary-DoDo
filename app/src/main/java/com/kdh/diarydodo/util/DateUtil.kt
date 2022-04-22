@@ -12,7 +12,8 @@ object DateUtil {
         var dateValue = ""
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분")
+//            val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분")
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm")
             dateValue = current.format(formatter)
         }else{
             val currentTime = System.currentTimeMillis()
