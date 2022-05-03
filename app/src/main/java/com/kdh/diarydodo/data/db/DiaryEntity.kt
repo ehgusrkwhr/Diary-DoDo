@@ -11,5 +11,6 @@ data class DiaryEntity(
     @PrimaryKey(autoGenerate = true)
     var id: Long?,
     var memo: String = "",
-    var date: String = ""
+    var date: String = "",
+    var compareDate: String =""
 )

@@ -14,11 +14,12 @@ buildscript {
         classpath "com.google.gms:google-services:$google_service_version"
         classpath "com.google.gms:oss-licenses:$google_oss_licenses_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "com.google.firebase:firebase-crashlytics-gradle:$crashlytics_gradle_version"
+        classpath "com.google.firebase:firebase-crashlytics-gradle:2.8.1"
 
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.5'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
     }
 }
 

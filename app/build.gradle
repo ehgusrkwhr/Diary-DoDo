@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-//    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -18,22 +18,25 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
     }
 
     signingConfigs {
-//        release {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
-//        debug {
-//            storeFile file(RELEASE_STORE_FILE)
-//            storePassword RELEASE_STORE_PASSWORD
-//            keyAlias RELEASE_KEY_ALIAS
-//            keyPassword RELEASE_KEY_PASSWORD
-//        }
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+        debug {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
     }
+
 
 
 
@@ -42,11 +45,13 @@ android {
             debuggable false
             minifyEnabled false
             minifyEnabled true
-         //   signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [crashlyticsCollectionEnabled:"true"]
         }
         debug {
             debuggable true
+            manifestPlaceholders = [crashlyticsCollectionEnabled:"false"]
         }
     }
 
@@ -101,7 +106,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
     implementation 'com.google.android.material:material:1.2.0'
-
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     implementation "com.google.dagger:hilt-android:2.38.1"
@@ -117,4 +121,24 @@ dependencies {
 
     //time
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1'
+
+    //LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
+
+
+    //firebase
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:29.3.1')
+    // Add the dependency for the Firebase SDK for Google Analytics
+    // When using the BoM, don't specify versions in Firebase dependencies
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    implementation 'com.android.support:multidex:2.0.1'
+
+    //cardView
+    implementation "androidx.cardview:cardview:1.0.0"
+
+
+
 }

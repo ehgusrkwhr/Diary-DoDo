@@ -1,6 +1,6 @@
 package com.kdh.diarydodo.ui.custom
 
-import PictureInterface
+import IPicture
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
@@ -8,10 +8,10 @@ import android.util.Log
 import android.view.View
 import com.kdh.diarydodo.databinding.CustomPictureDialogBinding
 
-class CustomDialog(context: Context, pictureDialogInterface: PictureInterface) : Dialog(context),
+class CustomDialog(context: Context, IPictureDialog: IPicture) : Dialog(context),
     View.OnClickListener {
     private lateinit var binding: CustomPictureDialogBinding
-    private var event = pictureDialogInterface
+    private var event = IPictureDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("dodo2 ", "CustomDialog 지닙")

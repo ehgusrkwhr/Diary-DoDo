@@ -18,6 +18,11 @@
         android:roundIcon="@mipmap/ic_diary_m_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DiaryDoDo">
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsCollectionEnabled}"/>
+
         <activity
             android:name=".ui.splash.SplashActivity"
             android:exported="true">

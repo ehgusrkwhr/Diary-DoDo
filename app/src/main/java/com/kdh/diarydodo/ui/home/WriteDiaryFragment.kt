@@ -1,6 +1,6 @@
 package com.kdh.diarydodo.ui.home
 
-import PictureInterface
+import IPicture
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -145,6 +145,7 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("dodo55 ", "onViewCreated write")
         Log.d("dodo22 ", "WriteDiaryFragment onViewCreated")
         initView()
     }
@@ -186,7 +187,7 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
     private fun pictureDialog() {
         Log.d("dodo22 ", " pictureDialog")
         //val dialog = CustomDialog()
-        val dialog = CustomDialog(requireContext(), object : PictureInterface {
+        val dialog = CustomDialog(requireContext(), object : IPicture {
             override fun onCameraStart() {
                 Toast.makeText(activity, "카메라 클릭", Toast.LENGTH_SHORT).show()
                 val pictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -220,6 +221,15 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
 //
 //    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("dodo55 ", "onDestroy write")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Log.d("dodo55 ", "onDetach write")
+    }
 }
 
 

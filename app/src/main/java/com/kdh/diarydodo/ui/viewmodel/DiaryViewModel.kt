@@ -21,15 +21,24 @@ class DiaryViewModel @Inject constructor(
 
     val eventUserRepo: LiveData<List<DiaryEntity>> get() = _eventUserRepo
     private val _eventUserRepo = MutableLiveData<List<DiaryEntity>>()
+
+    val eventEqualDate: LiveData<List<DiaryEntity>> get() = _eventEqualDate
+    private val _eventEqualDate = MutableLiveData<List<DiaryEntity>>()
+
     fun getDiaryAll() = viewModelScope.launch {
         val response = diaryRepository.getALLDiary()
         _eventUserRepo.postValue(response)
     }
 
-    fun insertDiaryInfo(memo : String,date : String) = viewModelScope.launch {
-        diaryRepository.insertDiary(memo,date)
-       // _eventUserRepo.postValue(response)
+    fun insertDiaryInfo(memo: String, date: String) = viewModelScope.launch {
+        diaryRepository.insertDiary(memo, date)
+        // _eventUserRepo.postValue(response)
 
+    }
+
+    fun getEqualDateDiary(date: String) = viewModelScope.launch {
+        val response = diaryRepository.getEqualDateDiary(date)
+        _eventEqualDate.postValue(response)
     }
 
 

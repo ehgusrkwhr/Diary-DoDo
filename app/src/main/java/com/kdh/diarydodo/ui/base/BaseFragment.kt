@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.kdh.diarydodo.R
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
@@ -37,6 +39,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("dodo55 ","onDestroyView base")
         _binding = null
     }
 

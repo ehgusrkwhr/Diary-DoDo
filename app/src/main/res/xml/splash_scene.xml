@@ -30,6 +30,14 @@
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/imageView"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">

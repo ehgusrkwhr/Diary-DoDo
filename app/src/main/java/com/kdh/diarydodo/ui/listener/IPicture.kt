@@ -1,5 +1,5 @@
 
-interface PictureInterface {
+interface IPicture {
     fun onCameraStart()
     fun onAlbumStart()
 }
