@@ -154,10 +154,24 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
         binding.diaryReg.setOnClickListener {
             if (binding.editTextMemo.text.toString().isNotEmpty()) {
                 Toast.makeText(activity, "등록!", Toast.LENGTH_SHORT).show()
-                viewModel.insertDiaryInfo(
-                    binding.editTextMemo.text.toString(),
-                    DateUtil.getCurrentDateTime()
-                )
+                //아이디 존재 업뎃
+
+                if (arguments?.getString("id").isNullOrEmpty()) {
+                    Log.d("dodo55", "initView: 삽입  ")
+                    viewModel.insertDiaryInfo(
+                        binding.editTextMemo.text.toString(),
+                        DateUtil.getCurrentDateTime()
+                    )
+                } else {
+                    Log.d("dodo55", "initView: 업뎃  ")
+                    viewModel.updateDiary(
+                        binding.editTextMemo.text.toString(),
+                        DateUtil.getCurrentDateTime(),
+                        arguments?.getString("id")!!.toLong()
+                        //id
+                    )
+                }
+
             } else {
                 Toast.makeText(activity, "내용을 입력하세요", Toast.LENGTH_SHORT).show()
             }

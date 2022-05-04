@@ -1,5 +1,5 @@
 package com.kdh.diarydodo.ui.listener
 
 interface IDialog {
-    fun openDialog()
+    fun openDialog(id : String)
 }

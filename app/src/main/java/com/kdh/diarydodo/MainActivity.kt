@@ -2,14 +2,16 @@ package com.kdh.diarydodo
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-
 import com.kdh.diarydodo.databinding.ActivityMainBinding
+import com.kdh.diarydodo.ui.home.CalendarDiaryFragment
+import com.kdh.diarydodo.ui.home.ReadDiaryFragment
+import com.kdh.diarydodo.ui.home.SettingDiaryFragment
+import com.kdh.diarydodo.ui.home.WriteDiaryFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initNavigation()
+        initView()
 
     }
 
@@ -36,34 +39,57 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         //바텀 네이 뷰 와 네비게이션
         NavigationUI.setupWithNavController(binding.diaryBottom, navController)
+
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Log.d(TAG, "onBackPressed: ")
-        finish()
+    private fun initView() {
+//        binding.diaryBottom.apply {
+//            setOnItemSelectedListener { item ->
+//                when (item.itemId) {
+//                    R.id.readDiaryFragment -> supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, ReadDiaryFragment())
+//                    R.id.writeDiaryFragment -> supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, WriteDiaryFragment())
+//                    R.id.calendarDiaryFragment -> supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, CalendarDiaryFragment())
+//                    R.id.settingDiaryFragment -> supportFragmentManager.beginTransaction()
+//                        .replace(R.id.container, SettingDiaryFragment())
+//                }
+//                true
+//            }
+//        }
     }
+
+
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        Log.d(TAG, "onBackPressed: ")
+//        finish()
+//    }
 
     override fun onStop() {
         super.onStop()
-        Log.d("dodo55 ","onStop")
+        Log.d("dodo55 ", "onStop")
     }
 
     override fun onStart() {
         super.onStart()
-        Log.d("dodo55 ","onStart")
+        Log.d("dodo55 ", "onStart")
     }
+
     override fun onRestart() {
         super.onRestart()
-        Log.d("dodo55 ","onRestart")
+        Log.d("dodo55 ", "onRestart")
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("dodo55 ","onDestroy")
+        Log.d("dodo55 ", "onDestroy")
     }
+
     override fun onResume() {
         super.onResume()
-        Log.d("dodo55 ","onResume")
+        Log.d("dodo55 ", "onResume")
     }
 
 }

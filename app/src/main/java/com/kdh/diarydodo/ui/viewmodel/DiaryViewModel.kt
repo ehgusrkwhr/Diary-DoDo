@@ -1,5 +1,6 @@
 package com.kdh.diarydodo.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +19,7 @@ class DiaryViewModel @Inject constructor(
 //    val eventUserRepo: LiveData<List<DiaryEntity>> get() = _eventUserRepo
 //    private val _eventUserRepo = MutableLiveData<List<DiaryEntity>>()
 
-
+    val TAG = "dodo55"
     val eventUserRepo: LiveData<List<DiaryEntity>> get() = _eventUserRepo
     private val _eventUserRepo = MutableLiveData<List<DiaryEntity>>()
 
@@ -30,7 +31,7 @@ class DiaryViewModel @Inject constructor(
         _eventUserRepo.postValue(response)
     }
 
-    fun insertDiaryInfo(memo: String, date: String) = viewModelScope.launch {
+    fun insertDiaryInfo(memo: String, date: String, id:String = "") = viewModelScope.launch {
         diaryRepository.insertDiary(memo, date)
         // _eventUserRepo.postValue(response)
 
@@ -41,5 +42,16 @@ class DiaryViewModel @Inject constructor(
         _eventEqualDate.postValue(response)
     }
 
+    fun deleteDiary(id : String) = viewModelScope.launch {
+        Log.d(TAG, "deleteDiary: $id ")
+        diaryRepository.deleteDiary(id)
+    }
+
+    fun updateDiary(memo: String, date: String, id:Long = 0) = viewModelScope.launch {
+        diaryRepository.updateDiary(memo, date,id)
+        Log.d(TAG, "updateDiary: 업뎃 id ${id}")
+        // _eventUserRepo.postValue(response)
+
+    }
 
 }

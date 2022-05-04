@@ -23,8 +23,8 @@ class DiaryRepository @Inject constructor(private val diaryDAO: DiaryDAO) : Diar
         diaryDAO.insert(DiaryEntity(null, memo, date, equalDate(date)))
     }
 
-    override suspend fun deleteDiary(info: DiaryEntity) {
-        diaryDAO.delete(info)
+    override suspend fun deleteDiary(id: String) {
+        diaryDAO.delete(id)
     }
 
     override suspend fun getEqualDateDiary(date: String) : List<DiaryEntity> {
@@ -32,6 +32,10 @@ class DiaryRepository @Inject constructor(private val diaryDAO: DiaryDAO) : Diar
         return withContext(Dispatchers.IO) {
             diaryDAO.getSelectDateAll(date)
         }
+    }
+
+    override suspend fun updateDiary(memo: String, date: String, id: Long) {
+        diaryDAO.update(DiaryEntity(id, memo, date, equalDate(date)))
     }
 
 }

@@ -5,11 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.kdh.diarydodo.R
 import com.kdh.diarydodo.adapter.DiaryListAdapter
 import com.kdh.diarydodo.databinding.FragmentReadDiaryBinding
 import com.kdh.diarydodo.ui.base.BaseFragment
+import com.kdh.diarydodo.ui.custom.IDialogUpdateDiary
 import com.kdh.diarydodo.ui.custom.RemoveAndUpdateDialog
 import com.kdh.diarydodo.ui.listener.IDialog
 import com.kdh.diarydodo.ui.viewmodel.DiaryViewModel
@@ -46,19 +51,45 @@ class ReadDiaryFragment : BaseFragment<FragmentReadDiaryBinding>() {
     private fun initView() {
         listAdapter = DiaryListAdapter().apply {
             setDialog(object : IDialog {
-                override fun openDialog() {
-                    RemoveAndUpdateDialog(requireContext()).show()
+                override fun openDialog(id: String) {
+                    RemoveAndUpdateDialog(requireContext(), object : IDialogUpdateDiary {
+                        override fun leftButton() {
+                            RemoveAndUpdateDialog(requireContext(), object : IDialogUpdateDiary {
+                                override fun leftButton() {
+                                    Toast.makeText(requireContext(), "삭제", Toast.LENGTH_SHORT)
+                                        .show()
+                                    viewModel.deleteDiary(id)
+                                    initDiaryView()
+                                }
+
+                                override fun rightButton() {
+                                    Toast.makeText(requireContext(), "취소", Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                            }).apply {
+                                setDialogTitle("정말 삭제하시겠습니까?")
+                                setLeftButtonTitle("확인")
+                                setRightButtonTitle("취소")
+                            }.show()
+                        }
+
+                        override fun rightButton() {
+                            Toast.makeText(requireContext(), "업뎃", Toast.LENGTH_SHORT).show()
+                            val bundle = bundleOf("id" to id)
+                            // view?.findNavController()?.navigate(R.id.writeDiaryFragment, bundle)
+                            //NavHostFragment.findNavController(this@ReadDiaryFragment).findDestination(R.id.writeDiaryFragment)
+                            NavHostFragment.findNavController(this@ReadDiaryFragment)
+                                .navigate(R.id.writeDiaryFragment, bundle)
+
+                        }
+                    }).show()
+
                 }
             })
         }
         binding.readDiaryListView.apply {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = listAdapter
-//            val itemTouchHelperCallback = ItemTouchHelperCallback(this, requireContext()).apply {
-//                setClamp(resources.displayMetrics.widthPixels.toFloat() / 4)
-//            }
-//            ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(this)
-
         }
     }
 

@@ -4,18 +4,22 @@
     <item
         android:id="@+id/readDiaryFragment"
         android:icon="@drawable/ic_rdairy"
+        android:menuCategory="secondary"
         android:title="read" />
     <item
         android:id="@+id/writeDiaryFragment"
         android:icon="@drawable/ic_wdairy"
+        android:menuCategory="secondary"
         android:title="write" />
     <item
         android:id="@+id/calendarDiaryFragment"
         android:icon="@drawable/ic_calendar"
+        android:menuCategory="secondary"
         android:title="calendar" />
     <item
-        android:id="@+id/settingFragment"
+        android:id="@+id/settingDiaryFragment"
         android:icon="@drawable/ic_setting"
+        android:menuCategory="secondary"
         android:title="setting" />
 
 </menu>

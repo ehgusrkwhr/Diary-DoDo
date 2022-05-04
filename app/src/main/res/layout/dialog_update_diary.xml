@@ -9,6 +9,8 @@
     android:layout_marginRight="30dp"
     android:layout_gravity="center"
     android:background="@drawable/bg_dialog_update"
+    android:id="@+id/updateDiaryDialog"
+    tools:context=".ui.custom.RemoveAndUpdateDialog"
 
 
 >

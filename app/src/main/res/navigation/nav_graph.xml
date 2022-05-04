@@ -9,14 +9,37 @@
         android:id="@+id/readDiaryFragment"
         android:name="com.kdh.diarydodo.ui.home.ReadDiaryFragment"
         android:label="fragment_read_diary"
-        tools:layout="@layout/fragment_read_diary" />
+        tools:layout="@layout/fragment_read_diary" >
+        <action
+            android:id="@+id/action_readDiaryFragment_to_writeDiaryFragment2"
+            app:destination="@id/writeDiaryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/writeDiaryFragment"
         android:name="com.kdh.diarydodo.ui.home.WriteDiaryFragment"
         android:label="fragment_write_diary"
-        tools:layout="@layout/fragment_write_diary" />
+        tools:layout="@layout/fragment_write_diary" >
+        <action
+            android:id="@+id/action_writeDiaryFragment_to_readDiaryFragment2"
+            app:destination="@id/readDiaryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/calendarDiaryFragment"
         android:name="com.kdh.diarydodo.ui.home.CalendarDiaryFragment"
         android:label="CalendarDiaryFragment" />
+    <fragment
+        android:id="@+id/settingDiaryFragment"
+        android:name="com.kdh.diarydodo.ui.home.SettingDiaryFragment"
+        android:label="SettingDiaryFragment" />
+
+    <dialog
+        android:id="@+id/updateDiaryDialog"
+        android:name="com.kdh.diarydodo.ui.custom.RemoveAndUpdateDialog"
+        android:label="RemoveAndUpdateDialog"
+        >
+
+        <action
+            android:id="@+id/action_updateDiaryDialog_to_writeDiaryFragment"
+            app:destination="@id/writeDiaryFragment" />
+    </dialog>
 </navigation>

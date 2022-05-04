@@ -42,7 +42,7 @@ class DiaryListAdapter() :
                 textViewBody.text = diaryInfo.memo
                 textViewDate.text = diaryInfo.date
                 container.setOnLongClickListener {
-                    IDialog.openDialog()
+                    IDialog.openDialog(diaryInfo.id.toString())
                     //RemoveAndUpdateDialog(listAdapterContext).show()
 
                     return@setOnLongClickListener false
