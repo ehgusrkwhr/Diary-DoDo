@@ -134,10 +134,18 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
+    //google login
+    implementation 'com.google.firebase:firebase-auth-ktx'
+
+
     implementation 'com.android.support:multidex:2.0.1'
 
     //cardView
     implementation "androidx.cardview:cardview:1.0.0"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
 
 

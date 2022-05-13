@@ -26,6 +26,7 @@ import com.kdh.diarydodo.singleClick
 import com.kdh.diarydodo.ui.base.BaseFragment
 import com.kdh.diarydodo.ui.custom.CustomDialog
 import com.kdh.diarydodo.ui.viewmodel.DiaryViewModel
+import com.kdh.diarydodo.util.DataUtil
 import com.kdh.diarydodo.util.DateUtil
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -120,9 +121,18 @@ class WriteDiaryFragment : BaseFragment<FragmentWriteDiaryBinding>() {
         if (it.resultCode == RESULT_OK) {
             it.data ?: return@registerForActivityResult
             val imageData = it.data!!.data as Uri
+            Log.d("dodo55 ", ": imageData ${imageData}")
+//            val takeFlags =
+//                Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+//            requireContext().contentResolver.takePersistableUriPermission(imageData, takeFlags)
+     //       Log.d("dodo55 ", ": DataUtil.getPath(imageData) ${DataUtil.getPath(imageData)}")
+            Log.d("dodo55 ", ": uri2path ${DataUtil.uri2path(imageData)}")
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 val source = ImageDecoder.createSource(requireContext().contentResolver, imageData)
                 val bitmap = ImageDecoder.decodeBitmap(source)
+                Log.d("dodo55 ", ": source ${source}")
+                Log.d("dodo55 ", ": bitmap ${bitmap}")
                 binding.imageViewPicture.setImageBitmap(bitmap)
             } else {
                 val bitmap = MediaStore.Images.Media.getBitmap(

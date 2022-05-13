@@ -3,12 +3,16 @@ package com.kdh.diarydodo.adapter
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kdh.diarydodo.data.db.DiaryEntity
 import com.kdh.diarydodo.databinding.DairyListListadapterBinding
 import com.kdh.diarydodo.ui.listener.IDialog
+import com.kdh.diarydodo.util.DataUtil
+import java.io.File
 import java.util.*
 
 
@@ -48,9 +52,13 @@ class DiaryListAdapter() :
                     return@setOnLongClickListener false
                 }
 
-                //     Glide.with(imageViewAvatar.context)
-//                    .load(user.avatar)
+//                var temp = "content://com.android.providers.media.documents/document/image%3A40320"
+//                Log.d("dodo55", "bind11: ${temp.toUri().path}")
+//                Log.d("dodo55", "bind22: ${DataUtil.getPath(temp.toUri())}")
+//                     Glide.with(imageViewAvatar.context)
+//                    .load(temp.toUri().path)
 //                    .into(imageViewAvatar)
+//
             }
         }
 

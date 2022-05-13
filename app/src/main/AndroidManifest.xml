@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
 
     <application
         android:name=".App"
@@ -21,7 +25,20 @@
 
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
-            android:value="${crashlyticsCollectionEnabled}"/>
+            android:value="${crashlyticsCollectionEnabled}" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mydomain.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+
+
+        </provider>
+
 
         <activity
             android:name=".ui.splash.SplashActivity"
@@ -33,6 +50,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
